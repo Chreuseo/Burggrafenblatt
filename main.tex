@@ -1,0 +1,216 @@
+%! TeX program = pdflatex
+% Das Burggrafenblatt -- Layout in Anlehnung an Ausgabe 1/26
+% Kompilieren (im Ordner src): pdflatex main.tex
+
+\documentclass[9pt]{extarticle}
+
+% ---------------------------------------------------------------- Pakete
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\IfFileExists{ngerman.ldf}{\usepackage[ngerman]{babel}}{}  % deutsche Silbentrennung, falls installiert
+\usepackage{courier}                 % Schreibmaschinen-Schrift wie in der Vorlage
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+\usepackage{fancyhdr}
+\usepackage{paracol}                 % Spalten mit frei einstellbarem Verhältnis
+\usepackage{mwe}                     % nur für die Platzhalterbilder (example-image)
+\usepackage[a5paper,top=2.6cm,bottom=2.2cm,left=1.9cm,right=1.9cm,
+            headheight=14pt,footskip=1cm]{geometry}
+
+\graphicspath{{img/}}   % Bilder aus src/img/ lassen sich ohne Ordner angeben
+\renewcommand{\familydefault}{\ttdefault}
+\renewcommand{\rmdefault}{\ttdefault}
+
+% ------------------------------------------------------- Konfiguration
+\newcommand{\Semester}{Sommersemester 2026}
+\newcommand{\Ausgabe}{Ausgabe 1/26}
+\newcommand{\Titel}{Das Burggrafenblatt}
+\newcommand{\UntertitelA}{K.St.V. Burggraf}
+\newcommand{\UntertitelB}{im KV zu Nürnberg}
+\newcommand{\Hintergrund}{img/hintergrund.jpg}
+
+\definecolor{BBgelb}{HTML}{FFD84F}
+\definecolor{BBrot}{HTML}{FF3B30}
+
+\setlength{\parindent}{0pt}
+\tolerance=9999 \emergencystretch=3em \hbadness=10000 \hfuzz=2pt  % Courier ist nicht dehnbar
+\setlength{\parskip}{0.4em}
+\setlength{\columnsep}{14pt}         % Abstand zwischen den Spalten
+\setlength{\fboxsep}{5pt}
+
+% ------------------------------------------------------- Hintergrundbild
+% Querformatiges Bild (2189x1460 px) wird mittig auf Hochformat zugeschnitten.
+\AddToShipoutPictureBG{%
+  \AtPageLowerLeft{%
+    \includegraphics[height=\paperheight,width=\paperwidth,
+      viewport=580 0 1608 1460,clip]{\Hintergrund}}}
+
+% ------------------------------------------------- Kopf- und Fußzeile
+\newcommand{\Farbstreifen}{%
+  {\color{BBgelb}\rule{\textwidth}{2.2pt}}\par\nointerlineskip\vspace{1.6pt}
+  {\color{BBrot}\rule{\textwidth}{2.2pt}}}
+
+\fancypagestyle{innen}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyhead[L]{\raisebox{4pt}{\small\textls[20]{\Semester}}}
+  \fancyhead[R]{\raisebox{4pt}{\large\bfseries\MakeUppercase{\Ausgabe}}}
+  \fancyfoot[C]{\small Seite \thepage}
+  \renewcommand{\footrulewidth}{1.6pt}
+  \renewcommand{\headrule}{\vspace{-2pt}\Farbstreifen}
+  \renewcommand{\headrulewidth}{4pt}}
+
+\fancypagestyle{titel}{%
+  \fancyhf{}
+  \fancyhead[L]{\raisebox{4pt}{\small\textls[20]{\Semester}}}
+  \fancyhead[R]{\raisebox{4pt}{\large\bfseries\MakeUppercase{\Ausgabe}}}
+  \fancyfoot[C]{\small Seite \thepage}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{1.6pt}}
+\pagestyle{innen}
+
+% ---------------------------------------------------------- Titelkopf
+% Großer Titel mit Untertiteln und Farbstreifen (nur auf Seite 1)
+\newcommand{\Titelkopf}{%
+  \thispagestyle{titel}%
+  \begin{center}
+    \vspace{0.2em}
+    {\fontsize{20}{24}\selectfont\bfseries\textls[60]{\MakeUppercase{\Titel}}}\par
+    \vspace{1.1em}
+    {\large\bfseries\textls[400]{\MakeUppercase{\UntertitelA}}}\par\vspace{0.6em}
+    {\large\bfseries\textls[400]{\MakeUppercase{\UntertitelB}}}\par
+    \vspace{0.8em}
+    \Farbstreifen
+  \end{center}\vspace{0.6em}}
+
+% ------------------------------------------------------- Textelemente
+% \Rubrik{Vorwort}  -- umrahmte Rubrikenüberschrift (Breite optional, Standard 0.5)
+\newcommand{\Rubrik}[2][0.5]{%
+  {\setlength{\fboxrule}{1.4pt}%
+   \noindent\framebox[#1\linewidth]{\large\rmfamily\textls[40]{\MakeUppercase{#2}}}\par}%
+  \vspace{0.6em}}
+
+% \Artikel{Überschrift}  -- fette, zentrierte Artikelüberschrift in Versalien
+\newcommand{\Artikel}[1]{%
+  \par\vspace{0.3em}
+  {\centering\bfseries\small\textls[30]{\MakeUppercase{#1}}\par}
+  \vspace{0.3em}\nopagebreak}
+
+% \Bild[Breite]{Datei}  -- Bild in Spaltenbreite (Breite relativ zur Spalte)
+\newcommand{\Bild}[2][1]{%
+  \par\vspace{0.3em}\noindent\hfill
+  \includegraphics[width=#1\linewidth]{#2}\hfill\null\par\vspace{0.3em}}
+
+% \Grussformel{Euer Philistersenior\\Sinan}
+\newcommand{\Grussformel}[1]{\par\vspace{0.6em}\noindent #1\par}
+
+% -------------------------------------------------- Einspaltiger Block
+% Voller Satzspiegel, nur ein Block (bei Bedarf einfach ohne Umgebung setzen)
+\newenvironment{einspaltig}{\par\vspace{0.4em}}{\par\vspace{0.4em}}
+
+% ------------------------------------------------- Mehrspaltiger Block
+% \begin{mehrspaltig}{3,2} ... \spaltenwechsel ... \end{mehrspaltig}
+% Das Argument sind die Anteile der Spalten (beliebige Zahlen, beliebig viele):
+%   {1,1}   zwei gleich breite Spalten
+%   {3,2}   linke Spalte 60 %, rechte 40 %
+%   {1,2,1} drei Spalten, die mittlere doppelt so breit
+\ExplSyntaxOn
+\NewDocumentEnvironment{mehrspaltig}{m}
+  {
+    \clist_set:Nn \l__bb_parts_clist {#1}
+    \int_set:Nn \l__bb_n_int { \clist_count:N \l__bb_parts_clist }
+    \fp_set:Nn \l__bb_sum_fp { 0 }
+    \clist_map_inline:Nn \l__bb_parts_clist
+      { \fp_add:Nn \l__bb_sum_fp { ##1 } }
+    \clist_clear:N \l__bb_ratio_clist
+    \int_zero:N \l__bb_i_int
+    \clist_map_inline:Nn \l__bb_parts_clist
+      {
+        \int_incr:N \l__bb_i_int
+        \int_compare:nT { \l__bb_i_int < \l__bb_n_int }
+          {
+            \clist_put_right:Nx \l__bb_ratio_clist
+              { \fp_eval:n { round( ##1 / \l__bb_sum_fp , 4 ) } }
+          }
+      }
+    \exp_args:NV \columnratio \l__bb_ratio_clist
+    \use:x { \exp_not:N \begin { paracol } { \int_use:N \l__bb_n_int } }
+  }
+  { \end{paracol} }
+\clist_new:N \l__bb_parts_clist
+\clist_new:N \l__bb_ratio_clist
+\fp_new:N \l__bb_sum_fp
+\int_new:N \l__bb_n_int
+\int_new:N \l__bb_i_int
+\ExplSyntaxOff
+\newcommand{\spaltenwechsel}{\switchcolumn}   % nächste Spalte beginnen
+\newcommand{\seitenumbruch}{\newpage}          % neue Seite (auch innerhalb von mehrspaltig)
+
+% Beispieltext
+\newcommand{\Beispieltext}{Dies ist ein Beispieltext, der zeigt, wie der Satz im
+  Burggrafenblatt aussieht. Auf unserem Stiftungsfest durften wir viele
+  Bundesbrüder begrüßen, Erinnerungen austauschen und gemeinsam feiern.
+  Freundschaft, Zusammenhalt und die gemeinsame Freude an unserer Verbindung
+  prägen unser Verbindungsleben.}
+
+% ================================================================ Dokument
+\begin{document}
+
+\Titelkopf
+
+% ---- Seite 1: Vorwort (Spalten 11:9, Bild in der rechten Spalte)
+\begin{mehrspaltig}{11,9}
+  \Rubrik[1]{Vorwort}
+  \textbf{Liebe Bundesbrüder,}\\
+  mit dieser ersten Ausgabe beginnt etwas Neues: ein kleines Format, das
+  künftig sichtbar machen soll, was unseren Burggraf bewegt.
+  \Beispieltext
+  \Grussformel{Euer Philistersenior\\Sinan}
+  \spaltenwechsel
+  \Bild{example-image-a}
+  \Beispieltext
+\end{mehrspaltig}
+
+\newpage
+
+% ---- Seite 2: Rubrik, einspaltig + mehrspaltig gemischt
+\Rubrik{Aus dem Semester}
+
+\begin{mehrspaltig}{1,1}
+  \Bild{hintergrund.jpg}
+  \Artikel{Hochzeit unseres Philistersenior}
+  \Beispieltext
+  \spaltenwechsel
+  \Artikel{Traditionelles Schlauchbootfahren}
+  \Beispieltext
+  \Bild{example-image-c}
+\end{mehrspaltig}
+
+\begin{einspaltig}
+  \Artikel{Kleines, aber herzliches Stiftungsfest}
+  \Beispieltext
+\end{einspaltig}
+
+\newpage
+
+% ---- Seite 3: weitere Beispiele für Spaltenverhältnisse
+\Rubrik{Verhältnisse}
+\Artikel{Zwei Spalten 3:1}
+\begin{mehrspaltig}{3,1}
+  \Beispieltext
+  \spaltenwechsel
+  \Bild{example-image-a}
+\end{mehrspaltig}
+
+\Artikel{Drei Spalten 1:1:1}
+\begin{mehrspaltig}{1,1,1}
+  \Beispieltext
+  \spaltenwechsel
+  \Beispieltext
+  \spaltenwechsel
+  \Beispieltext
+\end{mehrspaltig}
+
+\end{document}
