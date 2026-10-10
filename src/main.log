@@ -1,8 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.7.16)  9 OCT 2026 16:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.7.16)  10 OCT 2026 11:29
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
-**main.tex pdflatex -interaction=nonstopmode main.tex
+**main.tex
 (./main.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -246,8 +247,7 @@ LaTeX Font Info:    Trying to load font information for T1+pcr on input line 15
 
 (/usr/share/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-No file main.aux.
+) (./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 159.
@@ -285,6 +285,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `pcr' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count323
@@ -456,17 +457,17 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 7016 strings out of 469515
- 119087 string characters out of 5470807
- 651291 words of memory out of 5000000
- 35514 multiletter control sequences out of 15000+600000
+ 7019 strings out of 469515
+ 119126 string characters out of 5470807
+ 651280 words of memory out of 5000000
+ 35515 multiletter control sequences out of 15000+600000
  639831 words of font info for 123 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 88i,15n,91p,1044b,522s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 88i,15n,91p,1001b,522s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr/share/texmf-dis
 t/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/cou
 rier/ucrr8a.pfb>
-Output written on main.pdf (3 pages, 1645974 bytes).
+Output written on main.pdf (3 pages, 1645616 bytes).
 PDF statistics:
  45 PDF objects out of 1000 (max. 8388607)
  28 compressed objects within 1 object stream
