@@ -104,6 +104,24 @@
   \par\vspace{0.3em}\noindent\hfill
   \includegraphics[width=#1\linewidth]{#2}\hfill\null\par\vspace{0.3em}}
 
+% \BildLinks/Rechts{Bild}{Rolle}{Name}{Beschreibung}
+\newcommand{\BildLinks}[4]{%
+  \par\vspace{0.5em}\noindent
+  \begin{minipage}[t]{0.19\textwidth}\vspace{0pt}%
+    \includegraphics[width=\linewidth,height=3.1cm,keepaspectratio]{#1}%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.77\textwidth}\vspace{0pt}%
+    {\bfseries #2 -- #3}\par\vspace{0.2em}#4%
+  \end{minipage}\par}
+\newcommand{\BildRechts}[4]{%
+  \par\vspace{0.5em}\noindent
+  \begin{minipage}[t]{0.77\textwidth}\vspace{0pt}%
+    {\bfseries #2 -- #3}\par\vspace{0.2em}#4%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.19\textwidth}\vspace{0pt}%
+    \includegraphics[width=\linewidth,height=3.1cm,keepaspectratio]{#1}%
+  \end{minipage}\par}
+
 % \Grussformel{Euer Philistersenior\\Sinan}
 \newcommand{\Grussformel}[1]{\par\vspace{0.6em}\noindent #1\par}
 
