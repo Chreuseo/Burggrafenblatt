@@ -15,6 +15,7 @@
 \usepackage{eso-pic}
 \usepackage{fancyhdr}
 \usepackage{paracol}                 % Spalten mit frei einstellbarem Verhältnis
+\usepackage{multicol}                % Gleich breite Spalten mit automatischem Textfluss
 \usepackage{mwe}                     % nur für die Platzhalterbilder (example-image)
 \usepackage[a5paper,top=2.6cm,bottom=2.2cm,left=1.9cm,right=1.9cm,
             headheight=14pt,footskip=1cm]{geometry}
@@ -112,6 +113,7 @@
 
 % ------------------------------------------------- Mehrspaltiger Block
 % \begin{mehrspaltig}{3,2} ... \spaltenwechsel ... \end{mehrspaltig}
+% Feste Spaltenbreiten; Inhalte per \spaltenwechsel manuell verteilen.
 % Das Argument sind die Anteile der Spalten (beliebige Zahlen, beliebig viele):
 %   {1,1}   zwei gleich breite Spalten
 %   {3,2}   linke Spalte 60 %, rechte 40 %
@@ -148,6 +150,12 @@
 \newcommand{\spaltenwechsel}{\switchcolumn}   % nächste Spalte beginnen
 \newcommand{\seitenumbruch}{\newpage}          % neue Seite (auch innerhalb von mehrspaltig)
 
+% Gleich breite Spalten; Text läuft automatisch über Spalten und Seiten weiter.
+\newenvironment{textspalten}[1]
+  {\begin{multicols}{#1}}
+  {\end{multicols}}
+\newcommand{\textspaltenwechsel}{\columnbreak} % optionaler manueller Spaltenwechsel
+
 % Beispieltext
 \newcommand{\Beispieltext}{Dies ist ein Beispieltext, der zeigt, wie der Satz im
   Burggrafenblatt aussieht. Auf unserem Stiftungsfest durften wir viele
@@ -178,15 +186,14 @@
 % ---- Seite 2: Rubrik, einspaltig + mehrspaltig gemischt
 \Rubrik{Aus dem Semester}
 
-\begin{mehrspaltig}{1,1}
+\begin{textspalten}{2}
   \Bild{hintergrund.jpg}
   \Artikel{Hochzeit unseres Philistersenior}
   \Beispieltext
-  \spaltenwechsel
   \Artikel{Traditionelles Schlauchbootfahren}
   \Beispieltext
   \Bild{example-image-c}
-\end{mehrspaltig}
+\end{textspalten}
 
 \begin{einspaltig}
   \Artikel{Kleines, aber herzliches Stiftungsfest}
@@ -205,12 +212,10 @@
 \end{mehrspaltig}
 
 \Artikel{Drei Spalten 1:1:1}
-\begin{mehrspaltig}{1,1,1}
+\begin{textspalten}{3}
+  \Beispieltext\par
+  \Beispieltext\par
   \Beispieltext
-  \spaltenwechsel
-  \Beispieltext
-  \spaltenwechsel
-  \Beispieltext
-\end{mehrspaltig}
+\end{textspalten}
 
 \end{document}
